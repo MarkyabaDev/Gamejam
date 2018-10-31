@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FPSPlayer : MonoBehaviour
 {
@@ -23,15 +24,13 @@ public class FPSPlayer : MonoBehaviour
     void Start()
     {
         m_char = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-        ProcessPlanting();
-
     }
 
     void Move()
@@ -77,35 +76,17 @@ public class FPSPlayer : MonoBehaviour
 
     }
 
-    void ProcessPlanting()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetMouseButtonDown(1))
+        if (other.tag == "Shortcut")
         {
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
+            GameObject.Find("Dropdown").GetComponent<Dropdown>().ClearOptions();
+            GameObject.Find("Dropdown").GetComponent<Dropdown>().AddOptions(GameController.gameControllerInstance.shortcutNames);
         }
+    }
 
-        if (Cursor.lockState == CursorLockMode.None)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100f, m_cubeLayers))
-                {
-                    //Wenn wir collider treffen, dann platzieren
-                    //Quaternion, ist keine rotation
-                    GameObject tree = Instantiate(CubePrefab, hit.point, Quaternion.identity);
-                    tree.transform.up = hit.normal;
-                }
-            }
+    private void OnTriggerStay(Collider other)
+    {
 
-        }
     }
 }
