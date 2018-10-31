@@ -278,12 +278,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1078160835393704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2abdaffaf0c66f43b9f907b0e40a24c, type: 3}
+  m_Script: {fileID: 11500000, guid: 80a0576024920f744a39f1ecbec441cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 5
-  livesText: {fileID: 114854240343219392, guid: 20e1d24ffb040a548a2a602497b6f450,
-    type: 2}
+  CubePrefab: {fileID: 0}
+  m_Speed: 1
+  m_rotationSpeed: 120
+  Cam: {fileID: 0}
+  m_cubeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpSpeed: 100
+  minVert: -45
+  maxVert: 45
 --- !u!114 &114191176786451756
 MonoBehaviour:
   m_ObjectHideFlags: 1
