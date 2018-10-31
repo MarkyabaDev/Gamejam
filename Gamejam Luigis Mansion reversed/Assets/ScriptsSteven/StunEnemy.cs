@@ -5,14 +5,20 @@ using UnityEngine;
 public class StunEnemy : MonoBehaviour {
 
     public GameObject Enemy;
+    public GameObject stun;
+    AIMovement AiScript;
 
     void Start () {
-		
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        AiScript = Enemy.GetComponent<AIMovement>();
     }
 
+    private void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log(collider.name);
+        if (collider.gameObject == stun)
+        {
+            AiScript.IsRunning = true;
+            Debug.Log("Collide");
+        }
+    }
 }
