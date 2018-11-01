@@ -661,9 +661,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: ba6b8c72-1e67-4a4f-98b0-55148ea97ce7
-  projectName: Gamejam Luigis Mansion reversed
-  organizationId: gothicfan95
+  cloudProjectId: 
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

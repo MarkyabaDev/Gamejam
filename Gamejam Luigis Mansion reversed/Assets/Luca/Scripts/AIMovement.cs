@@ -23,7 +23,7 @@ public class AIMovement : MonoBehaviour {
    
 
         m_Runner = GetComponent<NavMeshAgent>();
-        m_Runner.SetDestination(m_Waypoints[1].position);
+        //m_Runner.SetDestination(m_Waypoints[0].position);
     }
 	
 	// Update is called once per frame
