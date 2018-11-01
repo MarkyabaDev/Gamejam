@@ -62,54 +62,25 @@ Material:
         m_Texture: {fileID: 2800000, guid: f7f33abb2fe723d4e99005e00fc6ecb7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_329BA602: 0.07
-<<<<<<< HEAD
-<<<<<<< HEAD
-    - Vector1_841C2CC7: -0.030490221
-=======
-    - Vector1_841C2CC7: 0.5551683
->>>>>>> 8599dd84fb29d3b2b73c5de4ea5d6c671ce0169e
-=======
-    - Vector1_841C2CC7: -1.0009148
->>>>>>> 6e78a0a52fc111b547144c7e881f30b217478f69
-    - Vector1_EE8C0C4D: 30
-    - _AlphaClip: 0
-    - _Blend: 0
     - _BumpScale: 1
-    - _BurnSize: 0.121
-    - _Cull: 2
+    - _BurnSize: 0.15
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
-    - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shininess: 0.5
-<<<<<<< HEAD
-    - _SliceAmount: -0.0017923969
-=======
-    - _SliceAmount: -0.016018974
->>>>>>> 4c51820c565fcbd8a1cef879262d25fe114c2b91
+    - _SliceAmount: -0.261
     - _SmoothnessTextureChannel: 0
-    - _SpecSource: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Surface: 0
     - _UVSec: 0
-    - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_AA70D6CC: {r: 1, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
