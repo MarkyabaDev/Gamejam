@@ -7,9 +7,13 @@ public class AIMovement : MonoBehaviour {
 
     public float m_Speed = 5;
     public Transform[] m_Waypoints;
-    public bool IsRunning = true;
     public GameObject enemy;
+    public bool IsRunning = true;
+    public bool m_IsSleeping = true;
     public int m_currentIndex = 0;
+    public float m_AmountStunTime = 5;
+
+    private float m_timer = 0;
 
     NavMeshAgent m_Runner;
     
@@ -24,14 +28,22 @@ public class AIMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        EnemyRun();
+        if (m_IsSleeping)
+        {
+            
+        }
+        else
+        {
+            EnemyRun();
+        }
+       
 
         
     }
 
     void EnemyRun()
     {
+
         if (IsRunning)
         {
             Vector3 dir = m_Waypoints[m_currentIndex].position - transform.position;
@@ -45,11 +57,19 @@ public class AIMovement : MonoBehaviour {
         }
         else
         {
-            //StartCoroutine(doSomething());
-           // IsRunning = true;
-            // System.Threading.Thread.Sleep(5000);
-            //this.enabled = false;
-            //IsRunning = true;
+
+            m_Runner.isStopped = true;
+           if(m_timer <= m_AmountStunTime)
+            {
+                m_timer += Time.deltaTime;
+            }
+           else
+            {
+                m_Runner.isStopped = false;
+                IsRunning = true;
+                m_timer = 0;
+            }   
+            // 6e78a0a52fc111b547144c7e881f30b217478f69
 
         }
     }
