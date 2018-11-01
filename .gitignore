@@ -35,3 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Gamejam Luigis Mansion reversed/Assets/new.txt.meta
+Gamejam Luigis Mansion reversed/Assets/Scenes/Level1.meta
+Gamejam Luigis Mansion reversed/Assets/Scenes/Level1/NavMesh.asset.meta
