@@ -14,10 +14,9 @@ public class StunEnemy : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(collider.name);
         if (collider.gameObject == stun)
         {
-            AiScript.IsRunning = true;
+            AiScript.IsRunning = false;
             Debug.Log("Collide");
         }
     }

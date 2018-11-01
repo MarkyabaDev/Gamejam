@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shortcut
   - SpawnPointSelect
+  - Door
   layers:
   - Default
   - TransparentFX
