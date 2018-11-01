@@ -1,48 +1,44 @@
-﻿Shader "Standard/Dissolve" {
-	Properties {
-		_EdgeColor ("Edge Color", Color) = (1,1,1,1)
-		_EdgeWidth ("EdgeWidth", Float) = 0.01
-		_NoiseScale ("Noise Scale", Float) = 30
-		_Dissolve ("Dissolve", Range(-1.5,1.5)) = -1
-	}
-	SubShader {
-		Tags { "RenderType"="Opaque" }
-		LOD 200
+﻿Shader "Dissolving" {
+    Properties {
+      _MainTex ("Texture (RGB)", 2D) = "white" {}
+      _SliceGuide ("Slice Guide (RGB)", 2D) = "white" {}
+      _SliceAmount ("Slice Amount", Range(-0.5, 1.0)) = 0.5
 
-		CGPROGRAM
-		// Physically based Standard lighting model, and enable shadows on all light types
-		#pragma surface surf Standard fullforwardshadows
 
-		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0
+ _BurnSize ("Burn Size", Range(0.0, 1.0)) = 0.15
+ _BurnRamp ("Burn Ramp (RGB)", 2D) = "white" {}
+    }
+    SubShader {
+      Tags { "RenderType" = "Opaque" }
+      Cull Off
+      CGPROGRAM
+      //if you're not planning on using shadows, remove "addshadow" for better performance
+      #pragma surface surf Lambert addshadow
+      struct Input {
+          float2 uv_MainTex;
+          float2 uv_SliceGuide;
+          float _SliceAmount;
+      };
 
-		sampler2D _MainTex;
 
-		struct Input {
-			float2 uv_MainTex;
-		};
+      sampler2D _MainTex;
+      sampler2D _SliceGuide;
+      float _SliceAmount;
+ sampler2D _BurnRamp;
+ float _BurnSize;
 
-		half _Glossiness;
-		half _Metallic;
-		fixed4 _Color;
 
-		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
-		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
-		// #pragma instancing_options assumeuniformscaling
-		UNITY_INSTANCING_BUFFER_START(Props)
-			// put more per-instance properties here
-		UNITY_INSTANCING_BUFFER_END(Props)
-
-		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			// Metallic and smoothness come from slider variables
-			o.Metallic = _Metallic;
-			o.Smoothness = _Glossiness;
-			o.Alpha = c.a;
-		}
-		ENDCG
-	}
-	FallBack "Diffuse"
-}
+      void surf (Input IN, inout SurfaceOutput o) {
+          clip(tex2D (_SliceGuide, IN.uv_SliceGuide).rgb - _SliceAmount);
+          o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb;
+ 
+ half test = tex2D (_SliceGuide, IN.uv_MainTex).rgb - _SliceAmount;
+ if(test < _BurnSize && _SliceAmount > 0 && _SliceAmount < 1){
+    o.Emission = tex2D(_BurnRamp, float2(test *(1/_BurnSize), 0));
+ o.Albedo *= o.Emission;
+ }
+      }
+      ENDCG
+    } 
+    Fallback "Diffuse"
+  }
