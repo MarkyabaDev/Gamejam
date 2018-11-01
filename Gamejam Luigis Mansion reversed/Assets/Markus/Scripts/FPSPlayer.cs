@@ -22,6 +22,7 @@ public class FPSPlayer : MonoBehaviour
     public float m_dissolveAmount  = -1;
     public float m_dissolvingSpeed = 1;
     public float m_cameraChangeSpeed = 1;
+    public float m_pushPower = 2.0f;
 
     private float m_ySpeed;
     private bool m_dissolving = false;
@@ -153,22 +154,20 @@ public class FPSPlayer : MonoBehaviour
         {
             if (m_dead)
             {
-                m_playerMaterial.SetColor("Color_AA70D6CC", Color.red);
+                //m_playerMaterial.SetColor("Color_AA70D6CC", Color.red);
             }
             else
             {
-                m_playerMaterial.SetColor("Color_AA70D6CC", Color.cyan);
+                //m_playerMaterial.SetColor("Color_AA70D6CC", Color.cyan);
             }
 
             m_thirdPerson = true;
             m_renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             m_char.enabled = false;
-            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, 1.5f, Time.deltaTime * m_dissolvingSpeed);
-            m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
+            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, 1f, Time.deltaTime * m_dissolvingSpeed);
+            m_playerMaterial.SetFloat("_SliceAmount", m_dissolveAmount);           
 
-            
-
-            if(m_dissolveAmount >= 1)
+            if(m_dissolveAmount > 0.5f)
             {
                 m_dissolving = false;
                 if (!m_dead)
@@ -187,10 +186,11 @@ public class FPSPlayer : MonoBehaviour
         if(m_appearing)
         {
             m_dead = false;
-            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, -1.5f, Time.deltaTime * m_dissolvingSpeed);
-            m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
-            if (m_dissolveAmount <= -1)
+            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, -0.5f, Time.deltaTime * m_dissolvingSpeed);
+            m_playerMaterial.SetFloat("_SliceAmount", m_dissolveAmount);
+            if (m_dissolveAmount < 0)
             {
+                Debug.Log("Alive");
                 m_renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                 m_char.enabled = true;
                 m_appearing = false;
@@ -235,6 +235,28 @@ public class FPSPlayer : MonoBehaviour
         {
             GameController.gameControllerInstance.isOnShortcut = false;
             m_shortcutDropdown.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.transform.tag == "Door")
+        {
+            Rigidbody body = hit.collider.attachedRigidbody;
+
+            if (body == null || body.isKinematic) { return; }
+
+           // if (hit.moveDirection.y < -0.3) { return; }
+            
+            // Calculate push direction from move direction,
+            // we only push objects to the sides never up and down
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.y);
+            
+            // If you know how fast your character is trying to move,
+            // then you can also multiply the push velocity by that.
+            // Apply the push
+            body.velocity = pushDir * m_pushPower;
+            Debug.Log(pushDir * m_pushPower);
         }
     }
 

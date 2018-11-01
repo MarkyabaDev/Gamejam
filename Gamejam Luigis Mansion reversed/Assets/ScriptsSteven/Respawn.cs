@@ -17,7 +17,7 @@ public class Respawn : MonoBehaviour {
 
     private void Update()
     {
-        if(fpsPlayer.m_dead && fpsPlayer.m_dissolveAmount >= 1)
+        if(fpsPlayer.m_dead && fpsPlayer.m_dissolveAmount >= 0.5f)
         {
             this.Player.transform.position = new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z);
             fpsPlayer.m_appearing = true;

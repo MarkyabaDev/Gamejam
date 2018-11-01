@@ -11,6 +11,10 @@ public class AIMovement : MonoBehaviour {
     public GameObject enemy;
     public int m_currentIndex = 0;
 
+    public float m_AmountStunTime = 5;
+
+    private float m_timer = 0;
+
     NavMeshAgent m_Runner;
     
 
@@ -45,9 +49,17 @@ public class AIMovement : MonoBehaviour {
         }
         else
         {
-            // System.Threading.Thread.Sleep(5000);
-           
-            IsRunning = true;
+            m_Runner.isStopped = true;
+           if(m_timer <= m_AmountStunTime)
+            {
+                m_timer += Time.deltaTime;
+            }
+           else
+            {
+                m_Runner.isStopped = false;
+                IsRunning = true;
+                m_timer = 0;
+            }
 
         }
     }
