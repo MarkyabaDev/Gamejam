@@ -664,6 +664,11 @@ Prefab:
       propertyPath: IsRunning
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 81794616969031492, guid: af42d051d259fc64090809008ae075d2,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af42d051d259fc64090809008ae075d2, type: 2}
   m_IsPrefabAsset: 0
@@ -2227,6 +2232,11 @@ Prefab:
     - target: {fileID: 114124153788672908, guid: af42d051d259fc64090809008ae075d2,
         type: 2}
       propertyPath: m_IsSleeping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 81794616969031492, guid: af42d051d259fc64090809008ae075d2,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

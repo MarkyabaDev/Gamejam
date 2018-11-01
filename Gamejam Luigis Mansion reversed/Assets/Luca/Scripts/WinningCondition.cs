@@ -33,7 +33,6 @@ public class WinningCondition : MonoBehaviour
 
         if (m_enemies.Count == walkers)
         {
-            Debug.Log("Winner");
             //SceneManager.LoadScene("WinningScreen", LoadSceneMode.Additive);
             //return;
             Time.timeScale = 0;
