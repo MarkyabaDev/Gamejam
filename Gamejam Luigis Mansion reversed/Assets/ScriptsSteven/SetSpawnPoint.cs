@@ -21,6 +21,7 @@ public class SetSpawnPoint : MonoBehaviour {
 
     public void UseSpawnPoint()
     {
+        SelectSpawn.Clear();
         SelectSpawn.AddRange(GameObject.FindGameObjectsWithTag("SpawnPointSelect"));
         foreach (GameObject child in SelectSpawn)
         {
@@ -30,6 +31,7 @@ public class SetSpawnPoint : MonoBehaviour {
                 ChangeSpawnTo = GameObject.Find("Spawnpoints/"+spawnName);
                 Debug.Log("Spawnpoints/"+spawnName);
                 SpawnPoint.transform.position = new Vector3(ChangeSpawnTo.transform.position.x, ChangeSpawnTo.transform.position.y, ChangeSpawnTo.transform.position.z);
+
             }
         }
     }
