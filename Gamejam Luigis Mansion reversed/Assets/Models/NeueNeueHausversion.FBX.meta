@@ -1,20 +1,71 @@
 fileFormatVersion: 2
-guid: f90f3adf8321b4e978f4a8a23152ea9d
+guid: 8557430007607ef469157405e8f8b36a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: cowboy
-    9500000: //RootNode
+    100000: Dach
+    100002: EGBoden
+    100004: Kellerboden
+    100006: //RootNode
+    100008: OGBoden
+    100010: UTypeStair001
+    100012: UTypeStair002
+    100014: WandEG
+    100016: WandKeller
+    100018: WandOG
+    400000: Dach
+    400002: EGBoden
+    400004: Kellerboden
+    400006: //RootNode
+    400008: OGBoden
+    400010: UTypeStair001
+    400012: UTypeStair002
+    400014: WandEG
+    400016: WandKeller
+    400018: WandOG
+    2100000: No Name
+    2300000: Dach
+    2300002: EGBoden
+    2300004: Kellerboden
+    2300006: OGBoden
+    2300008: UTypeStair001
+    2300010: UTypeStair002
+    2300012: WandEG
+    2300014: WandKeller
+    2300016: WandOG
+    3300000: Dach
+    3300002: EGBoden
+    3300004: Kellerboden
+    3300006: OGBoden
+    3300008: UTypeStair001
+    3300010: UTypeStair002
+    3300012: WandEG
+    3300014: WandKeller
+    3300016: WandOG
+    4300000: EGBoden
+    4300002: WandEG
+    4300004: UTypeStair001
+    4300006: UTypeStair002
+    4300008: WandKeller
+    4300010: Kellerboden
+    4300012: OGBoden
+    4300014: WandOG
+    4300016: Dach
+    6400000: Dach
+    6400002: EGBoden
+    6400004: Kellerboden
+    6400006: OGBoden
+    6400008: UTypeStair001
+    6400010: UTypeStair002
+    6400012: WandEG
+    6400014: WandKeller
+    6400016: WandOG
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -29,7 +80,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -42,11 +93,11 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -54,19 +105,19 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
-    indexFormat: 1
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.9999999
-    hasPreviousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
+    normalCalculationMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -84,9 +135,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
