@@ -37,7 +37,7 @@ public class AIMovement : MonoBehaviour {
             Vector3 dir = m_Waypoints[m_currentIndex].position - transform.position;
             dir = dir.normalized;
             dir = dir * Time.deltaTime * m_Speed;
-            if (m_Runner.remainingDistance <= 0.5f) 
+            if (m_Runner.remainingDistance <= 0.5f)
             {
                 m_currentIndex = Random.Range(0, m_Waypoints.Length);
                 m_Runner.SetDestination(m_Waypoints[m_currentIndex].position);
@@ -45,11 +45,12 @@ public class AIMovement : MonoBehaviour {
         }
         else
         {
+            //StartCoroutine(doSomething());
+           // IsRunning = true;
             // System.Threading.Thread.Sleep(5000);
-           
-            IsRunning = true;
+            //this.enabled = false;
+            //IsRunning = true;
 
         }
     }
-
 }
