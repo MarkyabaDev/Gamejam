@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ASwitch : MonoBehaviour
+public class ToAList : MonoBehaviour
 {
-    public void NextScene()
+
+    public void ToaList()
     {
-        SceneManager.LoadScene("Achievements");
+        SceneManager.LoadScene("Achievements Explained");
     }
-  
 }
