@@ -5,28 +5,30 @@ using UnityEngine.UI;
 
 public class FPSPlayer : MonoBehaviour
 {
-
-    public GameObject CubePrefab;
     public float m_Speed = 1;
     public float m_rotationSpeed = 120;
-    public Camera Cam;
-    public LayerMask m_cubeLayers;
+    public Camera m_Cam;
 
-    public Material _playerMaterial;
+    public Transform m_thirdPersonCameraSpot, m_firstPersonCameraSpot;
+
+    public Material m_playerMaterial;
 
     CharacterController m_char;
-    private float m_ySpeed;
-    public float jumpSpeed = 100;
+    public float m_jumpSpeed = 100;
 
     //CAM
-    public float minVert = -45.0f;
-    public float maxVert = 45.0f;
-    public float dissolveAmount  = -1;
-    public bool dissolving = false;
-    public bool appearing = false;
-    public float dissolvingSpeed = 1;
+    public float m_minVert = -45.0f;
+    public float m_maxVert = 45.0f;
+    public float m_dissolveAmount  = -1;
+    public float m_dissolvingSpeed = 1;
+    public float m_cameraChangeSpeed = 1;
 
-    private float _rotationX = 0;
+    private float m_ySpeed;
+    private bool m_dissolving = false;
+    private bool m_appearing = false;
+    private bool m_thirdPerson = false;
+
+    private float m_rotationX = 0;
 
     private Dropdown m_shortcutDropdown;
 
@@ -43,10 +45,28 @@ public class FPSPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (!m_thirdPerson)
+        {
+            Move();
+        }
         DissolveAndTeleport();
         Appear();
         
+        
+    }
+
+    private void LateUpdate()
+    {
+        if (!m_thirdPerson)
+        {
+            CameraMove();
+            CameraToFirstPerson();
+        }
+        else
+        {
+            m_Cam.transform.LookAt(transform.position + new Vector3(0,1.5f,0));
+            CameraToThirdPerson();
+        }
     }
 
     void Move()
@@ -69,7 +89,7 @@ public class FPSPlayer : MonoBehaviour
 
             if (Input.GetButton("Jump"))
             {
-                m_ySpeed = jumpSpeed;
+                m_ySpeed = m_jumpSpeed;
             }
             else
             {
@@ -86,24 +106,38 @@ public class FPSPlayer : MonoBehaviour
 
         m_char.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * Time.deltaTime * m_rotationSpeed);
 
-        _rotationX -= Input.GetAxis("Mouse Y") * Time.deltaTime * m_rotationSpeed;
-        _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
-        float rotationY = transform.rotation.y;
-        Cam.transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
-
     }
+    
+    void CameraMove()
+    {
+        m_rotationX -= Input.GetAxis("Mouse Y") * Time.deltaTime * m_rotationSpeed;
+        m_rotationX = Mathf.Clamp(m_rotationX, m_minVert, m_maxVert);
+        float rotationY = transform.rotation.y;
+        m_Cam.transform.localEulerAngles = new Vector3(m_rotationX, rotationY, 0);
+    }
+
+    void CameraToThirdPerson()
+    {
+        m_Cam.transform.position = Vector3.Lerp(m_Cam.transform.position, m_thirdPersonCameraSpot.position, Time.deltaTime * m_cameraChangeSpeed);
+    }
+
+    void CameraToFirstPerson()
+    {
+        m_Cam.transform.position = Vector3.Lerp(m_Cam.transform.position, m_firstPersonCameraSpot.position, Time.deltaTime * m_cameraChangeSpeed * 2);
+    }
+
 
     void DissolveAndTeleport()
     {
-        if (dissolving)
+        if (m_dissolving)
         {
-            dissolveAmount = Mathf.Lerp(dissolveAmount, 1.5f, Time.deltaTime * dissolvingSpeed);
-            _playerMaterial.SetFloat("Vector1_841C2CC7", dissolveAmount);
+            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, 1.5f, Time.deltaTime * m_dissolvingSpeed);
+            m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
 
-            if(dissolveAmount >= 1)
+            if(m_dissolveAmount >= 1)
             {
-                dissolving = false;
-                appearing = true;
+                m_dissolving = false;
+                m_appearing = true;
                 transform.position = GameObject.Find(m_shortcutDropdown.options[m_shortcutDropdown.value].text).transform.position + new Vector3(1, 0, 0);
             }
         }
@@ -111,13 +145,14 @@ public class FPSPlayer : MonoBehaviour
 
     void Appear()
     {
-        if(appearing)
+        if(m_appearing)
         {
-            dissolveAmount = Mathf.Lerp(dissolveAmount, -1.5f, Time.deltaTime * dissolvingSpeed);
-            _playerMaterial.SetFloat("Vector1_841C2CC7", dissolveAmount);
-            if (dissolveAmount <= -1)
+            m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, -1.5f, Time.deltaTime * m_dissolvingSpeed);
+            m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
+            if (m_dissolveAmount <= -1)
             {
-                appearing = false;
+                m_appearing = false;
+                m_thirdPerson = false;
             }
         }
     }
@@ -141,7 +176,7 @@ public class FPSPlayer : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 transform.LookAt(other.transform.position);
-                Cam.transform.LookAt(other.transform.position);
+                m_Cam.transform.LookAt(other.transform.position);
                 m_shortcutDropdown.gameObject.SetActive(true);
             }
             else if (Input.GetMouseButtonDown(1) && m_shortcutDropdown.gameObject.activeSelf)
@@ -163,6 +198,9 @@ public class FPSPlayer : MonoBehaviour
 
     public void UseShortcut()
     {
-        dissolving = true;              
+        m_thirdPerson = true;
+        m_dissolving = true;
+
+        //m_shortcutDropdown.gameObject.SetActive(false);
     }
 }

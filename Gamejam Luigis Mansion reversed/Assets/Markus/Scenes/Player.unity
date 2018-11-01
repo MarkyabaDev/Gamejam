@@ -839,21 +839,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a0576024920f744a39f1ecbec441cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CubePrefab: {fileID: 0}
   m_Speed: 3
   m_rotationSpeed: 120
-  Cam: {fileID: 2047673137}
-  m_cubeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  _playerMaterial: {fileID: 2100000, guid: f02df6e5d8374f343ab704a5619c131f, type: 2}
-  jumpSpeed: 5
-  minVert: -45
-  maxVert: 45
-  dissolveAmount: -1
-  dissolving: 0
-  appearing: 0
-  dissolvingSpeed: 1
+  m_Cam: {fileID: 2047673137}
+  m_thirdPersonCameraSpot: {fileID: 1022158957}
+  m_firstPersonCameraSpot: {fileID: 2138452032}
+  m_playerMaterial: {fileID: 2100000, guid: f02df6e5d8374f343ab704a5619c131f, type: 2}
+  m_jumpSpeed: 100
+  m_minVert: -45
+  m_maxVert: 45
+  m_dissolveAmount: -1
+  m_dissolvingSpeed: 1
+  m_cameraChangeSpeed: 2
 --- !u!4 &1021567883
 Transform:
   m_ObjectHideFlags: 0
@@ -866,9 +863,39 @@ Transform:
   m_Children:
   - {fileID: 1276962002}
   - {fileID: 2047673138}
+  - {fileID: 1022158957}
+  - {fileID: 2138452032}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &1022158956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1022158957}
+  m_Layer: 0
+  m_Name: ThirdPersonCameraSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1022158957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1022158956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1021567883}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1066189351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2013,4 +2040,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2138452031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138452032}
+  m_Layer: 0
+  m_Name: FirstPersonCameraSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2138452032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2138452031}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1021567883}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
