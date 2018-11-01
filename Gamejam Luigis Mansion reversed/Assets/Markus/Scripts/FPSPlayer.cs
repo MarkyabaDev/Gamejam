@@ -22,6 +22,7 @@ public class FPSPlayer : MonoBehaviour
     public float m_dissolveAmount  = -1;
     public float m_dissolvingSpeed = 1;
     public float m_cameraChangeSpeed = 1;
+    public float m_pushPower = 2.0f;
 
     private float m_ySpeed;
     private bool m_dissolving = false;
@@ -236,6 +237,23 @@ public class FPSPlayer : MonoBehaviour
             GameController.gameControllerInstance.isOnShortcut = false;
             m_shortcutDropdown.gameObject.SetActive(false);
         }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        if(body == null || body.isKinematic) { return; }
+
+        if (hit.moveDirection.y < -0.3) { return; }
+        // Calculate push direction from move direction,
+        // we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+        // If you know how fast your character is trying to move,
+        // then you can also multiply the push velocity by that.
+        // Apply the push
+        body.velocity = pushDir * m_pushPower;
+
     }
 
     public void UseShortcut()
