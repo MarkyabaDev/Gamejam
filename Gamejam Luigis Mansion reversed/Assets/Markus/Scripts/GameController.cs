@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour {
     public List<GameObject> shortcuts;
     public List<string> shortcutNames;
 
+    public bool isOnShortcut;
+
     public static GameController gameControllerInstance;
 
     private void Awake()
@@ -34,7 +36,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    if(Time.timeScale == 0)
+	    if(Time.timeScale == 0 || isOnShortcut)
         {
             Cursor.lockState = CursorLockMode.None;
         }

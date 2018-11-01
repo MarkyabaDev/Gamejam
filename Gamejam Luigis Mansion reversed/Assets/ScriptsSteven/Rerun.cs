@@ -20,6 +20,7 @@ public class Rerun : MonoBehaviour {
         Time.timeScale = 1;
         Debug.Log(player.name);
         Debug.Log(SpawnPoint.name);
+        player.GetComponent<FPSPlayer>().m_appearing = true;
 
         player.transform.position = new Vector3(SpawnPoint.transform.position.x, SpawnPoint.transform.position.y, SpawnPoint.transform.position.z);
     }

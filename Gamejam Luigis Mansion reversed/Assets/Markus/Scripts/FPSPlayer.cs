@@ -25,18 +25,28 @@ public class FPSPlayer : MonoBehaviour
 
     private float m_ySpeed;
     private bool m_dissolving = false;
-    private bool m_appearing = false;
     private bool m_thirdPerson = false;
+
+    public bool m_dead = false;
+    public bool m_appearing = false;
 
     private float m_rotationX = 0;
 
     private Dropdown m_shortcutDropdown;
+    private Renderer m_renderer;
+    private Vector3 m_cameraPosition = new Vector3();
+
+    void Awake()
+    {
+        m_char = GetComponent<CharacterController>();
+    }
 
     // Use this for initialization
     void Start()
-    {
-        m_char = GetComponent<CharacterController>();
+    {   
         m_shortcutDropdown = GameObject.Find("ShortcutDropdown").GetComponent<Dropdown>();
+        m_renderer = GetComponentInChildren<MeshRenderer>();
+        
 
         m_shortcutDropdown.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
@@ -118,7 +128,17 @@ public class FPSPlayer : MonoBehaviour
 
     void CameraToThirdPerson()
     {
-        m_Cam.transform.position = Vector3.Lerp(m_Cam.transform.position, m_thirdPersonCameraSpot.position, Time.deltaTime * m_cameraChangeSpeed);
+        RaycastHit hit;
+        
+        if (Physics.Raycast(m_firstPersonCameraSpot.position, m_thirdPersonCameraSpot.position - m_firstPersonCameraSpot.position, out hit, 3))
+        {
+            m_cameraPosition = hit.point;
+        }
+        else
+        {
+            m_cameraPosition = m_thirdPersonCameraSpot.position;
+        }
+        m_Cam.transform.position = Vector3.Lerp(m_Cam.transform.position, m_cameraPosition, Time.deltaTime * m_cameraChangeSpeed);
     }
 
     void CameraToFirstPerson()
@@ -129,16 +149,35 @@ public class FPSPlayer : MonoBehaviour
 
     void DissolveAndTeleport()
     {
-        if (m_dissolving)
+        if (m_dissolving || m_dead)
         {
+            if (m_dead)
+            {
+                m_playerMaterial.SetColor("Color_AA70D6CC", Color.red);
+            }
+            else
+            {
+                m_playerMaterial.SetColor("Color_AA70D6CC", Color.cyan);
+            }
+
+            m_thirdPerson = true;
+            m_renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            m_char.enabled = false;
             m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, 1.5f, Time.deltaTime * m_dissolvingSpeed);
             m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
+
+            
 
             if(m_dissolveAmount >= 1)
             {
                 m_dissolving = false;
-                m_appearing = true;
-                transform.position = GameObject.Find(m_shortcutDropdown.options[m_shortcutDropdown.value].text).transform.position + new Vector3(1, 0, 0);
+                if (!m_dead)
+                {
+                    
+                    m_appearing = true;
+                    
+                    transform.position = GameObject.Find(m_shortcutDropdown.options[m_shortcutDropdown.value].text).transform.GetChild(0).position;
+                }
             }
         }
     }
@@ -147,10 +186,13 @@ public class FPSPlayer : MonoBehaviour
     {
         if(m_appearing)
         {
+            m_dead = false;
             m_dissolveAmount = Mathf.Lerp(m_dissolveAmount, -1.5f, Time.deltaTime * m_dissolvingSpeed);
             m_playerMaterial.SetFloat("Vector1_841C2CC7", m_dissolveAmount);
             if (m_dissolveAmount <= -1)
             {
+                m_renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                m_char.enabled = true;
                 m_appearing = false;
                 m_thirdPerson = false;
             }
@@ -174,14 +216,14 @@ public class FPSPlayer : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1) && !m_shortcutDropdown.gameObject.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.None;
+                GameController.gameControllerInstance.isOnShortcut = true;
                 transform.LookAt(other.transform.position);
                 m_Cam.transform.LookAt(other.transform.position);
                 m_shortcutDropdown.gameObject.SetActive(true);
             }
             else if (Input.GetMouseButtonDown(1) && m_shortcutDropdown.gameObject.activeSelf)
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                GameController.gameControllerInstance.isOnShortcut = false;
                 m_shortcutDropdown.gameObject.SetActive(false);
             }
         }
@@ -191,16 +233,13 @@ public class FPSPlayer : MonoBehaviour
     {
         if (other.tag == "Shortcut")
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            GameController.gameControllerInstance.isOnShortcut = false;
             m_shortcutDropdown.gameObject.SetActive(false);
         }
     }
 
     public void UseShortcut()
     {
-        m_thirdPerson = true;
         m_dissolving = true;
-
-        //m_shortcutDropdown.gameObject.SetActive(false);
     }
 }

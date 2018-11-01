@@ -46,7 +46,7 @@ public class RoundTimer : MonoBehaviour {
         timeLeft -= 1;
         Timer.text = string.Format("{0:0}:{1:00}",timeInHours, timeInMinutes);
         startingTime += 1;
-        timeCounter += 60;
+        timeCounter++;
         if (startingTime == 86400)
         {
             startingTime = 0;
