@@ -19,7 +19,6 @@ public class GameController : MonoBehaviour {
 
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
     }
 
     // Use this for initialization
@@ -33,7 +32,15 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+	    if(Time.timeScale == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 	}
 }
