@@ -6,6 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Game.unity
     guid: 9171280930004944fa83da83d829822a
+=======
+    path: Assets/Luca/CharacterAI.unity
+    guid: 2449f06ccfe3cfb419317ed393a11a55
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 37bf5748f93f39447bfd9688386b4e3a
+>>>>>>> 5368b4b740aedfeedd707ea2c48d70fd442d8705
   m_configObjects: {}
