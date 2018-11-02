@@ -14,8 +14,4 @@ public class Trigger : MonoBehaviour {
 		
 	}
 
-    void OnTriggerEnter(Collider collider)
-    {
-
-    }
 }
