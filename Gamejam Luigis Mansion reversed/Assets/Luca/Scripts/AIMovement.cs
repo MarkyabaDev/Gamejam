@@ -12,6 +12,7 @@ public class AIMovement : MonoBehaviour {
     public bool m_IsSleeping = true;
     public int m_currentIndex = 0;
     public float m_AmountStunTime = 5;
+    private Animator m_animator;
 
     private float m_timer = 0;
 
@@ -20,25 +21,24 @@ public class AIMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-   
 
+        m_animator = GetComponent<Animator>();
         m_Runner = GetComponent<NavMeshAgent>();
         //m_Runner.SetDestination(m_Waypoints[0].position);
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         if (m_IsSleeping)
         {
-            
+            m_animator.SetBool("standing", true);
         }
         else
         {
+            m_animator.SetBool("standing", false);
             EnemyRun();
         }
-       
-
-        
     }
 
     void EnemyRun()
