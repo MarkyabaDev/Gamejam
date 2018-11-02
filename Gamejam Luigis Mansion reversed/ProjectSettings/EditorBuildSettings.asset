@@ -18,12 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1.unity
     guid: 1f4b3e78a5001b8449c8d14186b93fc3
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 37bf5748f93f39447bfd9688386b4e3a
-  - enabled: 1
     path: Assets/Scenes/PreGame.unity
     guid: 572b38fd13ef2394f87434b126149a36
   - enabled: 1
     path: Assets/Scenes/WinningScreen.unity
     guid: ab2d8ed8f6d92cd44b99cde4c629beb9
+  - enabled: 1
+    path: Assets/Scenes/NewMain.unity
+    guid: 22cbe9c779b03ca47a5d7f9b5f983c28
   m_configObjects: {}
